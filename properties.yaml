@@ -5,6 +5,7 @@ output_path=../../Artifacts/
 log_path=../log/file.log
 input_path=../../data/processed/
 model_path=../../models/
+model_name=Logistic_Model.sav
 
 
 # DB properties
