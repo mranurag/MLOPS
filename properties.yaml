@@ -1,0 +1,12 @@
+[hex_anomaly_detection]
+
+#paths inside containers
+output_path=../../Artifacts/
+log_path=../log/file.log
+input_path=../../data/processed/
+model_path=../../models/
+
+
+# DB properties
+
+
