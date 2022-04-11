@@ -1,4 +1,4 @@
-<h1 align="center">DA-CT-Heat_Exchanger_Diagnosis</h1>
+<h1 align="center">Sample DS project setup</h1>
 
 
 ## Description
