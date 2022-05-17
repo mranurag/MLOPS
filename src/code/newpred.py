@@ -17,6 +17,7 @@ sys.path.append('../utility/')
 import os
 import shutil
 import time
+import flask
 import configparser
 import logging
 import pandas as pd
@@ -25,11 +26,31 @@ import streamlit as st
 from sklearn.linear_model import LogisticRegression
 from pickle import dump
 from pickle import load
-
+from flask import request
 # Import code packages
-import DB_utilities as dbo
 import feature_utility as util
 
+from flask import Flask
+app = Flask(__name__)
+
+@app.route('/api/v1/getQ/', methods=['GET'])
+def getQ():
+    model_obj, exec_status = util.load_model(model_path,model_name)
+    CLMSEX = int(request.args.get('CLMSEX'))
+    CLMINSUR = int(request.args.get('CLMINSUR'))
+    SEATBELT = int(request.args.get('SEATBELT'))
+    CLMAGE = int(request.args.get('CLMAGE'))
+    LOSS = int(request.args.get('CLMAGE'))
+    class_out=""
+    data = {'CLMSEX':CLMSEX,'CLMINSUR':CLMINSUR,'SEATBELT':SEATBELT,'CLMAGE':CLMAGE,'LOSS':LOSS}
+    sample_data = pd.DataFrame(data,index = [0])
+    df = sample_data #util.get_sample_data()
+    pred_list,exec_status = util.get_predictions(model_obj,df)
+    if(exec_status):
+        class_out=str(pred_list[0][0])
+    else:
+        class_out="UNCLASSIFIED"
+    return "predicted class is "+ class_out
 
 # Function to initialise all the global variables at the server startup
 def initialise_vars_train():
@@ -57,7 +78,7 @@ def initialise_vars_train():
 # Main function call to launch the api. Api is running at port 5010
 if __name__ == '__main__':
     str_response = initialise_vars_train()
-    
+    app.run(debug=True, host = "0.0.0.0")
     print(str_response)
     
     
@@ -77,7 +98,9 @@ if __name__ == '__main__':
         model_obj, exec_status = util.load_model(model_path,model_name)
         
         if exec_status :
-            df = util.get_sample_data()
+            data = {'CLMSEX':1,'CLMINSUR':1,'SEATBELT':1,'CLMAGE':1,'LOSS':10000}
+            sample_data = pd.DataFrame(data,index = [0])
+            df = sample_data #util.get_sample_data()
             pred_list,exec_status = util.get_predictions(model_obj,df)
             
             if exec_status:

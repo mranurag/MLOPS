@@ -3,8 +3,6 @@
 import pandas as pd
 import numpy as np
 import scipy.stats
-from adtk.data import validate_series
-from adtk.detector import LevelShiftAD
 import datetime as dt
 from sklearn import linear_model
 from pickle import dump
@@ -12,7 +10,6 @@ from pickle import load
 
 # Import code packages
 from log import get_logger
-import DB_utilities as dbo
 
 #import plotting parameters
 import matplotlib.pyplot as plt

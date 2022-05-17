@@ -22,7 +22,6 @@ import logging
 import pandas as pd
 import numpy as np
 # Import code packages
-import DB_utilities as dbo
 import feature_utility as util
 
 
