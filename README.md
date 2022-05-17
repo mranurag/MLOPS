@@ -45,6 +45,13 @@ For configuration parameters properties.yml file is maintained having different 
 - to run the feature calculation api
 > python main.py
 
+### Prediction 
+
+#### From inside **/src/code**
+
+ - to run the prediction,
+ > python3 newpred.py
+
 
     
 
